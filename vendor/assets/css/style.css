@@ -1,0 +1,14 @@
+.card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 100%;
+    float: left;
+    background: #ffffff;
+}
+.card_txt {
+    vertical-align: middle;
+    text-align: right;
+    font: 'Gill Sans', 'Gill Sans MT', 'Myriad Pro', 'DejaVu Sans Condensed', 'Helvetica, Arial', 'sans-serif';
+    color: #FFFFFF;
+    padding-right: 5px;
+}
