@@ -10,6 +10,30 @@ class Ajx extends CI_Controller
     {
         parent::__construct();
         $this->load->model('M_data');
+        $this->load->library('pdf');
+    }
+
+    function print_custom()
+    {
+        $id_objek_wakaf = $this->input->post('id');
+
+        $data_objek_wakaf = $this->db->get_where("t_data_wakaf", array("id_data_wakaf" => $id_objek_wakaf), 1);
+
+        if ($data_objek_wakaf->num_rows() > 0) {
+            $data_objek_wakaf = $data_objek_wakaf->row_array();
+            $muwakif = $this->db->get_where('muwakif', ['id' => $data_objek_wakaf['muwakif_id']])->row_array();
+            $nadzir = $this->db->get_where('nadzir', ['muwakif_id' => $data_objek_wakaf['muwakif_id']])->row_array();
+
+            $html = $this->load->view('layout/print_data_wakaf', array(
+                'data_objek_wakaf' => $data_objek_wakaf,
+                'muwakif' => $muwakif,
+                'nadzir' => $nadzir
+            ), true);
+
+            $this->pdf->render($html, 'html', 'Legal');
+        } else {
+            echo "Data tidak ditemukan";
+        }
     }
 
     function ajx_d_inv()

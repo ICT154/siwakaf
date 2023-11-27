@@ -24,8 +24,7 @@
     <link rel=" stylesheet" href="<?= base_url('vendor/') ?>assets/css/fonts.googleapis.com.css" />
 
     <!-- ace styles -->
-    <link rel="stylesheet" href="<?= base_url('vendor/') ?>assets/css/ace.min.css" class="ace-main-stylesheet"
-        id="main-ace-style" />
+    <link rel="stylesheet" href="<?= base_url('vendor/') ?>assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 
     <!--[if lte IE 9]>
 			<link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
@@ -58,16 +57,13 @@
                 <div class="col-sm-12" style="background:#FFFFFF; min-height:50px; ">
 
                     <div class="col-sm-4">
-                        <a href="index.php" class="navbar-brand">
-                            <img src="<?= base_url('vendor/assets/images/Logo_Persis.png') ?>"
-                                style="float:left;  margin-left: 0px" height="60px">
+                        <a href="<?= base_url("") ?>" class="navbar-brand">
+                            <img src="<?= base_url('vendor/assets/images/Logo_Persis.png') ?>" style="float:left;  margin-left: 0px" height="60px">
 
                         </a>
                     </div>
 
-                    <div class="col-sm-8 h2 blue"
-                        style="font-size: 35px; color: #438EB9; text-shadow: 1px 1px 1px #000; font-weight: bold;"
-                        align="right">
+                    <div class="col-sm-8 h2 blue" style="font-size: 35px; color: #438EB9; text-shadow: 1px 1px 1px #000; font-weight: bold;" align="right">
                         Sistem Informasi Manajemen Wakaf PD Persis
                     </div>
                 </div>
@@ -96,8 +92,7 @@
 
                     <li class="light-blue dropdown-modal">
                         <a data-toggle="dropdown" href="#" class="dropdown-toggle">
-                            <img class="nav-user-photo" src="<?= base_url('vendor/') ?>assets/images/avatars/user.jpg"
-                                alt="Jason's Photo" />
+                            <img class="nav-user-photo" src="<?= base_url('vendor/') ?>assets/images/avatars/user.jpg" alt="Jason's Photo" />
                             <span class="user-info">
                                 <small>Welcome,</small>
                                 <?= $user['username'] ?>
@@ -106,8 +101,7 @@
                             <i class="ace-icon fa fa-caret-down"></i>
                         </a>
 
-                        <ul
-                            class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
 
                             <li>
                                 <a href="<?= base_url('dash/profil') ?>">
@@ -133,16 +127,16 @@
 
     <div class="main-container ace-save-state" id="main-container">
         <script type="text/javascript">
-        try {
-            ace.settings.loadState('main-container')
-        } catch (e) {}
+            try {
+                ace.settings.loadState('main-container')
+            } catch (e) {}
         </script>
 
         <div id="sidebar" class="sidebar responsive ace-save-state">
             <script type="text/javascript">
-            try {
-                ace.settings.loadState('sidebar')
-            } catch (e) {}
+                try {
+                    ace.settings.loadState('sidebar')
+                } catch (e) {}
             </script>
 
             <div class="sidebar-shortcuts" id="sidebar-shortcuts">
@@ -203,6 +197,15 @@
                     <b class="arrow"></b>
                 </li>
 
+                <li class="" id="data_wakaf_">
+                    <a href="<?= base_url('dash/data_wakaf_') ?>">
+                        <i class="menu-icon fa fa-database"></i>
+                        <span class="menu-text"> Data Wakaf </span>
+                    </a>
+
+                    <b class="arrow"></b>
+                </li>
+
                 <!-- <li class="" id="pet3">
                     <a href="<?= base_url('dash/petav3') ?>">
                         <i class="menu-icon fa fa-globe"></i>
@@ -212,7 +215,7 @@
                     <b class="arrow"></b>
                 </li> -->
 
-                <li class="" id="db">
+                <!-- <li class="" id="db">
                     <a href="#" class="dropdown-toggle">
                         <i class="menu-icon fa fa-database"></i>
                         <span class="menu-text">
@@ -225,14 +228,14 @@
                     <b class="arrow"></b>
 
                     <ul class="submenu">
-                        <!-- <li class="" id="kategoriwakaf">
+                        <li class="" id="kategoriwakaf">
                             <a href="<?= base_url('dash/j_wakaf') ?>">
                                 <i class="menu-icon fa fa-caret-right"></i>
                                 Kategori Wakaf
                             </a>
 
                             <b class="arrow"></b>
-                        </li> -->
+                        </li>
 
                         <li class="" id="wakaf_masjid_">
                             <a href="<?= base_url('dash/wakaf_masjid') ?>">
@@ -273,9 +276,9 @@
 
 
                     </ul>
-                </li>
+                </li> -->
 
-                <li class="" id="pen">
+                <!-- <li class="" id="pen">
                     <a href="#" class="dropdown-toggle">
                         <i class="menu-icon fa fa-list"></i>
                         <span class="menu-text"> Aktifitas </span>
@@ -319,7 +322,7 @@
                             <b class="arrow"></b>
                         </li>
                     </ul>
-                </li>
+                </li> -->
 
                 <!-- <li class="" id="lap">
                     <a href="#" class="dropdown-toggle">
@@ -421,8 +424,7 @@
             </ul><!-- /.nav-list -->
 
             <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-                <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state"
-                    data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+                <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
             </div>
         </div>
 
@@ -462,32 +464,27 @@
                                 </div>
 
                                 <div class="ace-settings-item">
-                                    <input type="checkbox" class="ace ace-checkbox-2 ace-save-state"
-                                        id="ace-settings-navbar" autocomplete="off" />
+                                    <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-navbar" autocomplete="off" />
                                     <label class="lbl" for="ace-settings-navbar"> Fixed Navbar</label>
                                 </div>
 
                                 <div class="ace-settings-item">
-                                    <input type="checkbox" class="ace ace-checkbox-2 ace-save-state"
-                                        id="ace-settings-sidebar" autocomplete="off" />
+                                    <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-sidebar" autocomplete="off" />
                                     <label class="lbl" for="ace-settings-sidebar"> Fixed Sidebar</label>
                                 </div>
 
                                 <div class="ace-settings-item">
-                                    <input type="checkbox" class="ace ace-checkbox-2 ace-save-state"
-                                        id="ace-settings-breadcrumbs" autocomplete="off" />
+                                    <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-breadcrumbs" autocomplete="off" />
                                     <label class="lbl" for="ace-settings-breadcrumbs"> Fixed Breadcrumbs</label>
                                 </div>
 
                                 <div class="ace-settings-item">
-                                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl"
-                                        autocomplete="off" />
+                                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-rtl" autocomplete="off" />
                                     <label class="lbl" for="ace-settings-rtl"> Right To Left (rtl)</label>
                                 </div>
 
                                 <div class="ace-settings-item">
-                                    <input type="checkbox" class="ace ace-checkbox-2 ace-save-state"
-                                        id="ace-settings-add-container" autocomplete="off" />
+                                    <input type="checkbox" class="ace ace-checkbox-2 ace-save-state" id="ace-settings-add-container" autocomplete="off" />
                                     <label class="lbl" for="ace-settings-add-container">
                                         Inside
                                         <b>.container</b>
@@ -497,14 +494,12 @@
 
                             <div class="pull-left width-50">
                                 <div class="ace-settings-item">
-                                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-hover"
-                                        autocomplete="off" />
+                                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-hover" autocomplete="off" />
                                     <label class="lbl" for="ace-settings-hover"> Submenu on Hover</label>
                                 </div>
 
                                 <div class="ace-settings-item">
-                                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact"
-                                        autocomplete="off" />
+                                    <input type="checkbox" class="ace ace-checkbox-2" id="ace-settings-compact" autocomplete="off" />
                                     <label class="lbl" for="ace-settings-compact"> Compact Sidebar</label>
                                 </div>
 

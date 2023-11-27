@@ -13,9 +13,60 @@ class Dash extends CI_Controller
         $this->load->model("M_log");
         $this->load->model("M_function");
         $this->load->library('Googlemaps');
+        $this->load->model('M_pagination', 'paging');
         if ($this->session->userdata('user') == '') {
             redirect('auth');
         }
+    }
+
+    function wakaf_load_form_add_()
+    {
+        $this->load->view('input_layout/data_wakaf_');
+    }
+
+
+    function data_wakaf_()
+    {
+        $user = $this->session->userdata('user');
+
+        $this->load->library('pagination');
+        $config['base_url'] = base_url("dash/data_wakaf_");
+        $config['total_rows'] = $this->paging->count('objekwakaf');
+        $config['per_page'] = 5;
+
+        $config['first_link']       = 'First';
+        $config['last_link']        = 'Last';
+        $config['next_link']        = 'Next';
+        $config['prev_link']        = 'Prev';
+        $config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close']   = '</ul></nav></div>';
+        $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close']    = '</span></li>';
+        $config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+        $config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
+        $config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close']  = '</span>Next</li>';
+        $config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close'] = '</span></li>';
+        $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['last_tagl_close']  = '</span></li>';
+
+        $from = $this->uri->segment(3);
+        $this->pagination->initialize($config);
+        $data_pagin = $this->paging->data('objekwakaf', $config['per_page'], $from);
+
+
+        $data['pagin'] = $data_pagin;
+        $data['user'] = $this->M_data->getWhere('t_admin', 'username', $user);
+        $data['title'] = 'Wakaf | Data Wakaf';
+        $data['bred'] = 'Data Wakaf';
+        $data['data'] = $this->M_data->getAllresult('t_data_wakaf');
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('layout/data_wakaf');
+        $this->load->view('templates/footer');
     }
 
     public function profil()

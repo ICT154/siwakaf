@@ -1,8 +1,20 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 class Welcome extends CI_Controller
 {
+
+
+
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->library('pdf');
+		$this->load->model('M_gzl');
+	}
 
 	/**
 	 * Index Page for this controller.
@@ -17,11 +29,13 @@ class Welcome extends CI_Controller
 	 *
 	 * So any other public methods not prefixed with an underscore will
 	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
+	 * @see https://codeigniter.com/user_guide/general/urls.html\
+	 * 
 	 */
 	public function index()
 	{
 		$this->load->view('welcome_message');
+		$this->load->library('Pedeef');
 	}
 
 
@@ -70,18 +84,18 @@ class Welcome extends CI_Controller
 	{
 	}
 
-	function GeneratePdf()
-	{
+	// function GeneratePdf()
+	// {
 
-		$html = $this->output->get_output();
-		// Load pdf library
-		$this->load->library('pdf');
-		$this->pdf->loadHtml($html);
-		$this->pdf->setPaper('A4', 'landscape');
-		$this->pdf->render();
-		// Output the generated PDF (1 = download and 0 = preview)
-		$this->pdf->stream("html_contents.pdf", array("Attachment" => 0));
-	}
+	// 	$html = $this->output->get_output();
+	// 	// Load pdf library
+	// 	$this->load->library('pdf');
+	// 	$this->pdf->loadHtml($html);
+	// 	$this->pdf->setPaper('A4', 'landscape');
+	// 	$this->pdf->render();
+	// 	// Output the generated PDF (1 = download and 0 = preview)
+	// 	$this->pdf->stream("html_contents.pdf", array("Attachment" => 0));
+	// }
 
 
 	public function buat()
@@ -104,5 +118,51 @@ class Welcome extends CI_Controller
 		// run dompdf
 		// ob_end_clean();
 		$this->pdfgenerator->generate($html, $file_pdf, $paper, $orientation);
+	}
+
+	function generatePDF($outputFilename, $htmlContent)
+	{
+		// Initialize Dompdf
+		$options = new Options();
+		$options->set('isHtml5ParserEnabled', true);
+		$options->set('isPhpEnabled', true);
+		$dompdf = new Dompdf($options);
+
+		// Load HTML content
+		$dompdf->loadHtml($htmlContent);
+
+		// Set paper size (e.g., 'A4', 'letter', 'legal')
+		$dompdf->setPaper('A4', 'portrait');
+
+		// Render PDF (first pass to get total pages)
+		try {
+			$dompdf->render();
+		} catch (\Exception $e) {
+			// Handle rendering errors
+			die('Error rendering PDF: ' . $e->getMessage());
+		};
+
+		// Output PDF to file or browser
+		$dompdf->stream($outputFilename, array('Attachment' => 0));
+
+		// Save PDF to a file if needed
+		// file_put_contents($outputFilename, $dompdf->output());
+	}
+
+
+
+	function tes_print()
+	{
+		$html = $this->load->view('layout/print_data_wakaf',);
+		// $html = '<h1>Hello, Dompdf!</h1><p>This is a simple example.</p>';
+		try {
+			$this->generatePDF("tes", $html);
+		} catch (\Throwable $th) {
+
+			echo "<pre>";
+			print_r($th);
+			echo "</pre>";
+		}
+		// $this->pdf->render($html);
 	}
 }

@@ -12,6 +12,60 @@ class Proses extends CI_Controller
     }
 
 
+    function data_wakaf_sv()
+    {
+        try {
+            $data_muwakif = array(
+                "ID" => $id_data_muwakif = "DM" . str_replace("-", "", date("Y-m-d")) . "" . rand() . "",
+                "NAMA_MUWAKIF" => htmlspecialchars($this->input->post('nama_muwakif')),
+                "ALAMAT_MUWAKIF" => htmlspecialchars($this->input->post('alamat_muwakif')),
+            );
+            $this->db->insert("muwakif", $data_muwakif);
+
+            $data_nadzir = array(
+                "ID" => $id_data_nadzir = "DN" . str_replace("-", "", date("Y-m-d")) . "" . rand() . "",
+                "MUWAKIF_ID" => $id_data_muwakif,
+                "NAMA_NADZIR" => htmlspecialchars($this->input->post('nama_nadzhir')),
+                "ALAMAT_NADZIR" => htmlspecialchars($this->input->post('alamat_nadzhir')),
+            );
+            $this->db->insert("nadzir", $data_nadzir);
+
+            $objek_wakaf = array(
+                "ID" => $id_data_wakaf = "DW" . str_replace("-", "", date("Y-m-d")) . "" . rand() . "",
+                "MUWAKIF_ID" => $id_data_muwakif,
+                "NO_OBJEK" => htmlspecialchars($this->input->post('objek_no')),
+                "JENIS_TANAH" => htmlspecialchars($this->input->post('jenis_tanah_wakaf')),
+                "LUAS_TANAH" =>  htmlspecialchars($this->input->post('luas_tanah_wakaf')),
+                "LOKASI_TANAH" => htmlspecialchars($this->input->post('alamat_tanah')),
+
+                "FUNGSI_WAKAF" => htmlspecialchars($this->input->post('fungsi_wakaf')),
+                "LUAS_FUNGSI" => htmlspecialchars($this->input->post('luas_tanah_wakaf_fungsi')),
+                "NAMA_PENGELOLA" => htmlspecialchars($this->input->post('nama_pengelola')),
+                // "STATUS_WAKAF" => htmlspecialchars($this->input->post('alamat_tanah')),
+                "BASTW_NOMOR" => htmlspecialchars($this->input->post('nomor_bastw')),
+                "AIW_NOMOR" => htmlspecialchars($this->input->post('no_awi_ppawi')),
+                "SERTIFIKAT_NOMOR" => htmlspecialchars($this->input->post('no_sertifikat_ajb')),
+
+                "TANGGAL_BASTW" => htmlspecialchars($this->input->post('tgl_bastw')),
+                "TANGGAL_AIW" => htmlspecialchars($this->input->post('tgl_awi_ppaiw')),
+                "TANGGAL_SERTIFIKAT" => htmlspecialchars($this->input->post('tgl_sertifikat_ajb')),
+
+                "JAMAAH" => htmlspecialchars($this->input->post('jamaah')),
+                "RANTING" => htmlspecialchars($this->input->post('ranting')),
+                "CABANG" => htmlspecialchars($this->input->post('cabang')),
+                "date_g" => date("Y-m-d H:i:s")
+            );
+            $this->db->insert("objekwakaf", $objek_wakaf);
+
+            $this->M_log->log_in("TAMBAH OBJEK WAKAF BARU " . $this->input->post('id_data_wakaf') . "");
+            $this->M_log->show_msg("success", "Data Berhasil Ditambahkan");
+            redirect(base_url("dash/data_wakaf_"));
+        } catch (\Throwable $th) {
+            $this->M_log->show_msg("danger", "Data Gagal Ditambahkan . " . $th->getMessage() . "");
+            redirect(base_url("dash/data_wakaf_"));
+        }
+    }
+
 
 
 
