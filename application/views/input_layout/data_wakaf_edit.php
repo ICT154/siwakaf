@@ -1,4 +1,4 @@
-<form class="form-horizontal" id="form-submit" method="post" action="<?= base_url("proses/data_wakaf_sv") ?>">
+<form class="form-horizontal" id="form-submit_edit" method="post" action="<?= base_url("proses/data_wakaf_sv_edit") ?>">
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1">
             <h3 style="text-align: center;">DATA MUWAKIF</h3>
@@ -9,7 +9,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> No Objek Wakaf </label>
 
         <div class="col-sm-7">
-            <input type="number" id="objek_no" name="objek_no" placeholder="No Objek Muwakif..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="number" id="objek_no" value="<?= $data_objek_wakaf['NO_OBJEK'] ?>" name="objek_no" placeholder="Nama Mufakif..." class="col-xs-10 col-sm-5" autocomplete="off" required>
         </div>
     </div>
 
@@ -17,7 +17,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Muwakif </label>
 
         <div class="col-sm-7">
-            <input type="text" id="nama_muwakif" name="nama_muwakif" placeholder="Nama Mufakif..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="text" id="nama_muwakif" name="nama_muwakif" value="<?= $muwakif['NAMA_MUWAKIF'] ?>" placeholder="Nama Mufakif..." class="col-xs-10 col-sm-5" autocomplete="off" required>
         </div>
     </div>
 
@@ -25,7 +25,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Alamat Muwakif</label>
 
         <div class="col-sm-9">
-            <textarea name="alamat_muwakif" id="alamat_muwakif" class="col-xs-10 col-sm-5"></textarea>
+            <textarea name="alamat_muwakif" id="alamat_muwakif" class="col-xs-10 col-sm-5">     <?= $muwakif['ALAMAT_MUWAKIF'] ?></textarea>
         </div>
     </div>
 
@@ -41,7 +41,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Nadzhir </label>
 
         <div class="col-sm-7">
-            <input type="text" id="nama_nadzhir" name="nama_nadzhir" placeholder="Nama Nadzhir..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="text" id="nama_nadzhir" name="nama_nadzhir" value="<?= $nadzir['NAMA_NADZIR'] ?>" placeholder="Nama Nadzhir..." class="col-xs-10 col-sm-5" autocomplete="off" required>
         </div>
     </div>
 
@@ -49,7 +49,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Alamat Nadzhir</label>
 
         <div class="col-sm-9">
-            <textarea name="alamat_nadzhir" id="alamat_nadzhir" class="col-xs-10 col-sm-5"></textarea>
+            <textarea name="alamat_nadzhir" id="alamat_nadzhir" class="col-xs-10 col-sm-5"><?= $nadzir['ALAMAT_NADZIR'] ?></textarea>
         </div>
     </div>
 
@@ -63,7 +63,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Jenis Tanaf Wakaf </label>
 
         <div class="col-sm-9">
-            <input type="text" id="jenis_tanah_wakaf" name="jenis_tanah_wakaf" placeholder="Jenis Tanah Wakaf..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="text" id="jenis_tanah_wakaf" value=" <?= $data_objek_wakaf['JENIS_TANAH'] ?>" name="jenis_tanah_wakaf" placeholder="Jenis Tanah Wakaf..." class="col-xs-10 col-sm-5" autocomplete="off" required>
         </div>
     </div>
 
@@ -71,13 +71,12 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Luas Tanah (m2) </label>
 
         <div class="col-sm-3">
-            <input type="number" id="luas_tanah_wakaf" name="luas_tanah_wakaf" placeholder="Luas Tanah..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="number" id="luas_tanah_wakaf" value="<?= $data_objek_wakaf['LUAS_TANAH'] ?> " name="luas_tanah_wakaf" placeholder="Luas Tanah..." class="col-xs-10 col-sm-5" autocomplete="off" required>
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Luas Bangunan (m2) </label>
-
         <div class="col-sm-3">
             <input type="number" id="luas_bangunan_wakaf" name="luas_bangunan_wakaf" placeholder="Luas Bangunan..." class="col-xs-10 col-sm-5" autocomplete="off" required>
         </div>
@@ -85,7 +84,6 @@
 
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Kategori Wakaf </label>
-
         <div class="col-sm-3">
             <select name="kategori_wakaf" id="kategori_wakaf" class="col-xs-10 col-sm-5">
                 <option value="MASJID">MASJID</option>
@@ -102,7 +100,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Alamat Tanah</label>
 
         <div class="col-sm-9">
-            <textarea name="alamat_tanah" id="alamat_tanah" class="col-xs-10 col-sm-5"></textarea>
+            <textarea name="alamat_tanah" id="alamat_tanah" class="col-xs-10 col-sm-5"><?= $data_objek_wakaf['LOKASI_TANAH'] ?></textarea>
         </div>
     </div>
 
@@ -129,7 +127,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Fungsi Wakaf </label>
 
         <div class="col-sm-9">
-            <input type="text" id="fungsi_wakaf" name="fungsi_wakaf" placeholder="Fungsi Wakaf..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="text" id="fungsi_wakaf" value="<?= $data_objek_wakaf['FUNGSI_WAKAF'] ?>" name="fungsi_wakaf" placeholder="Fungsi Wakaf..." class="col-xs-10 col-sm-5" autocomplete="off" required>
         </div>
     </div>
 
@@ -138,7 +136,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Luas Tanah (m2) </label>
 
         <div class="col-sm-3">
-            <input type="number" id="luas_tanah_wakaf_fungsi" name="luas_tanah_wakaf_fungsi" placeholder="Luas Tanah..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="number" id="luas_tanah_wakaf_fungsi" value="<?= $data_objek_wakaf['LUAS_FUNGSI'] ?>" name="luas_tanah_wakaf_fungsi" placeholder="Luas Tanah..." class="col-xs-10 col-sm-5" autocomplete="off" required>
         </div>
     </div>
 
@@ -155,7 +153,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Nama Pengelola </label>
 
         <div class="col-sm-7">
-            <input type="text" id="nama_pengelola" name="nama_pengelola" placeholder="Nama Pengelola..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="text" id="nama_pengelola" value="<?= $data_objek_wakaf['NAMA_PENGELOLA'] ?>" name="nama_pengelola" placeholder="Nama Pengelola..." class="col-xs-10 col-sm-5" autocomplete="off" required>
         </div>
     </div>
 
@@ -195,14 +193,14 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> No. BASTW </label>
 
         <div class="col-sm-7">
-            <input type="text" id="nomor_bastw" name="nomor_bastw" placeholder="No BASTW..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="text" id="nomor_bastw" name="nomor_bastw" placeholder="No BASTW..." class="col-xs-10 col-sm-5" autocomplete="off" required value="<?= $data_objek_wakaf['BASTW_NOMOR'] ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal BASTW </label>
 
         <div class="col-sm-4">
-            <input type="date" id="tgl_bastw" name="tgl_bastw" placeholder="No BASTW..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="date" id="tgl_bastw" name="tgl_bastw" placeholder="No BASTW..." class="col-xs-10 col-sm-5" autocomplete="off" required value="<?= $data_objek_wakaf['TANGGAL_BASTW'] ?>">
         </div>
     </div>
     <br>
@@ -211,7 +209,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> No. AWI / PPAIW </label>
 
         <div class="col-sm-7">
-            <input type="text" id="no_awi_ppawi" name="no_awi_ppawi" placeholder="No AWI / PPAIW..." class="col-xs-10 col-sm-5" autocomplete="off">
+            <input type="text" id="no_awi_ppawi" name="no_awi_ppawi" placeholder="No AWI / PPAIW..." class="col-xs-10 col-sm-5" autocomplete="off" value="<?= $data_objek_wakaf['AIW_NOMOR'] ?>">
         </div>
     </div>
 
@@ -219,7 +217,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal AWI / PPAIW </label>
 
         <div class="col-sm-4">
-            <input type="date" id="tgl_awi_ppaiw" name="tgl_awi_ppaiw" placeholder="No BASTW..." class="col-xs-10 col-sm-5" autocomplete="off">
+            <input type="date" id="tgl_awi_ppaiw" name="tgl_awi_ppaiw" placeholder="No BASTW..." class="col-xs-10 col-sm-5" autocomplete="off" value="<?= $data_objek_wakaf['AIW_NOMOR'] ?>">
         </div>
     </div>
 
@@ -229,14 +227,14 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> No. SERTIFIKAT / AJB </label>
 
         <div class="col-sm-7">
-            <input type="text" id="no_sertifikat_ajb" name="no_sertifikat_ajb" placeholder="No Sertifikat / Ajb..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="text" id="no_sertifikat_ajb" name="no_sertifikat_ajb" placeholder="No Sertifikat / Ajb..." class="col-xs-10 col-sm-5" autocomplete="off" value="<?= $data_objek_wakaf['SERTIFIKAT_NOMOR'] ?>">
         </div>
     </div>
     <div class="form-group">
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Tanggal SERTIFIKAT / AJB </label>
 
         <div class="col-sm-4">
-            <input type="date" id="tgl_sertifikat_ajb" name="tgl_sertifikat_ajb" placeholder="No BASTW..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="date" id="tgl_sertifikat_ajb" name="tgl_sertifikat_ajb" placeholder="No BASTW..." class="col-xs-10 col-sm-5" autocomplete="off" value="<?= $data_objek_wakaf['TANGGAL_SERTIFIKAT'] ?>">
         </div>
     </div>
 
@@ -253,7 +251,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Jamaah </label>
 
         <div class="col-sm-7">
-            <input type="text" id="jamaah" name="jamaah" placeholder="jamaah..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="text" id="jamaah" name="jamaah" placeholder="jamaah..." class="col-xs-10 col-sm-5" autocomplete="off" required value="<?= $data_objek_wakaf['JAMAAH'] ?>">
         </div>
     </div>
 
@@ -261,7 +259,7 @@
         <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Ranting </label>
 
         <div class="col-sm-7">
-            <input type="text" id="ranting" name="ranting" placeholder="ranting..." class="col-xs-10 col-sm-5" autocomplete="off" required>
+            <input type="text" id="ranting" name="ranting" placeholder="ranting..." class="col-xs-10 col-sm-5" autocomplete="off" required value="<?= $data_objek_wakaf['RANTING'] ?>">
         </div>
     </div>
 
@@ -291,6 +289,7 @@
     </div>
 
 
+    <input type="hidden" name="id_objek_wakaf" id="id_objek_wakaf" value="<?= $data_objek_wakaf['ID'] ?>">
 
     <div class="clearfix form-actions">
         <div class="col-md-offset-3 col-md-9">

@@ -19,9 +19,161 @@ class Dash extends CI_Controller
         }
     }
 
+    function ajx_e_adm()
+    {
+        $username = htmlspecialchars($this->input->post('inputUsername'));
+        $nama = htmlspecialchars($this->input->post('inputNama'));
+        $email = htmlspecialchars($this->input->post('inputEmail'));
+        $id_pimpinan_cabang = htmlspecialchars($this->input->post('pimpinan_cabang'));
+        $niat = htmlspecialchars($this->input->post('niat'));
+        $password = htmlspecialchars($this->input->post('password'));
+
+        $username_hidden = htmlspecialchars($this->input->post('username_hidden'));
+
+        if ($username == $username_hidden) {
+            $data = array(
+                'nama' => $nama,
+                'email' => $email,
+                'id_pimpinan_cabang' => $id_pimpinan_cabang,
+                'NIAT' => $niat,
+                'password' => $password
+            );
+            $this->db->where('username', $username);
+            $this->db->update('t_admin', $data);
+            $this->M_log->log_in("UBAH PENGGUNA  " . $username . "");
+            $this->M_log->show_msg("success", "Data Berhasil Diubah");
+        } else {
+            $cek_username = $this->db->get_where("t_admin", array("username" => $username));
+            if ($cek_username->num_rows() > 0) {
+                $this->M_log->show_msg("danger", "Username Sudah Ada, Harap Gunakan Username Lain");
+                redirect(base_url("dash/pengguna"));
+            } else {
+                $data = array(
+                    'username' => $username,
+                    'nama' => $nama,
+                    'email' => $email,
+                    'id_pimpinan_cabang' => $id_pimpinan_cabang,
+                    'NIAT' => $niat,
+                    'password' => $password
+                );
+                $this->db->where('username', $username_hidden);
+                $this->db->update('t_admin', $data);
+                $this->M_log->log_in("UBAH PENGGUNA  " . $username . "");
+                $this->M_log->show_msg("success", "Data Berhasil Diubah");
+
+                redirect(base_url("dash/pengguna"));
+            }
+        }
+
+        // $this->M_data->edit_adm($username, $nama, $email, $id_pimpinan_cabang, $niat, $password);
+    }
+
+
+    function adm_e($id)
+    {
+        $user = $this->session->userdata('user');
+        $data['user'] = $this->M_data->getWhere('t_admin', 'username', $user);
+        $data['title'] = 'Wakaf | Ubah Pengguna';
+        $data['bred'] = 'Ubah Pengguna';
+        $data['adm'] = $this->M_data->getAllresult('t_admin');
+        $data['pimpinan_cabang'] = $this->M_data->getAllresultCabang('pimpinancabang');
+
+        $locations = [
+            "ARJASARI", "BALEENDAH", "BANJARAN", "BOJONGSOANG", "CANGKUANG",
+            "CICALENGKA", "CILENGKRANG", "CILEUNYI", "CIMAUNG", "CIMENYAN",
+            "CIPARAY", "CIWIDEY", "CIKANCUNG", "DAYEUHKOLOT", "IBUN", "KATAPANG",
+            "KERTASARI", "KUTAWARINGIN", "MAJALAYA", "MARGA ASIH", "MARGAHAYU",
+            "NAGREG", "PACET", "PAMEUNGPEUK", "PANGALENGAN", "PASEH", "PASIR JAMBU",
+            "RANCAEKEK", "RANCABALI", "SOLOKAN JERUK", "SOREANG"
+        ];
+
+        $data['pimpinan_cabang'] = $locations;
+
+        $data['adm'] = $this->M_data->getWhere('t_admin', 'username', $id);
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('dash/adm_pengguna_edit');
+        $this->load->view('templates/footer');
+    }
+
+    function cabang()
+    {
+
+        $this->load->library('pagination');
+        $config['base_url'] = base_url("dash/cabang");
+        $config['total_rows'] = $this->paging->count('pimpinancabang');
+        $config['per_page'] = 5;
+
+        $config['first_link']       = 'First';
+        $config['last_link']        = 'Last';
+        $config['next_link']        = 'Next';
+        $config['prev_link']        = 'Prev';
+        $config['full_tag_open']    = '<div class="pagging text-center"><nav><ul class="pagination justify-content-center">';
+        $config['full_tag_close']   = '</ul></nav></div>';
+        $config['num_tag_open']     = '<li class="page-item"><span class="page-link">';
+        $config['num_tag_close']    = '</span></li>';
+        $config['cur_tag_open']     = '<li class="page-item active"><span class="page-link">';
+        $config['cur_tag_close']    = '<span class="sr-only">(current)</span></span></li>';
+        $config['next_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['next_tagl_close']  = '<span aria-hidden="true">&raquo;</span></span></li>';
+        $config['prev_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['prev_tagl_close']  = '</span>Next</li>';
+        $config['first_tag_open']   = '<li class="page-item"><span class="page-link">';
+        $config['first_tagl_close'] = '</span></li>';
+        $config['last_tag_open']    = '<li class="page-item"><span class="page-link">';
+        $config['last_tagl_close']  = '</span></li>';
+
+        $from = $this->uri->segment(3);
+        $this->pagination->initialize($config);
+        $data_pagin = $this->paging->data('pimpinancabang', $config['per_page'], $from);
+
+        $user = $this->session->userdata('user');
+        $data['pagin'] = $data_pagin;
+        $data['user'] = $this->M_data->getWhere('t_admin', 'username', $user);
+        $data['title'] = 'Wakaf | Data Cabang';
+        $data['bred'] = 'Data Cabang';
+        $data['data'] = $this->M_data->getAllresult('pimpinancabang');
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('layout/cabang');
+        $this->load->view('templates/footer');
+    }
+
+
+    function wakaf_load_form_edit_()
+    {
+        $id = $this->input->post('id');
+        $objek_wakaf = $this->db->get_where('objekwakaf', array('ID' => $id))->row_array();
+        $user = $this->session->userdata('user');
+        $user = $this->M_data->getWhere('t_admin', 'username', $user);
+
+        $muwakif = $this->db->get_where('muwakif', array('ID' => $objek_wakaf['MUWAKIF_ID']))->row_array();
+        $nadzir = $this->db->get_where('nadzir', array('MUWAKIF_ID' => $objek_wakaf['MUWAKIF_ID']))->row_array();
+
+        $data = array(
+            'data_objek_wakaf' => $objek_wakaf,
+            'muwakif' => $muwakif,
+            'nadzir' => $nadzir,
+            "user" => $user
+        );
+
+        $this->load->view('input_layout/data_wakaf_edit', $data);
+    }
+
+    function wakaf_delet_()
+    {
+        $id = $this->input->post('id');
+        $this->db->query("DELETE FROM `objekwakaf` WHERE `objekwakaf`.`ID` = '$id' ");
+        // $this->db->query("DELETE FROM `t_data_pimpinan` WHERE `t_data_pimpinan`.`id_data_wakaf` = '$id' ");
+        // $this->db->query("DELETE FROM `t_data_pengelola` WHERE `t_data_pengelola`.`id_data_wakaf` = '$id' ");
+        $this->M_log->log_in("HAPUS DATA WAKAF  " . $id . "");
+    }
+
     function wakaf_load_form_add_()
     {
-        $this->load->view('input_layout/data_wakaf_');
+        $user = $this->session->userdata('user');
+        $data['user'] = $this->M_data->getWhere('t_admin', 'username', $user);
+        $this->load->view('input_layout/data_wakaf_', $data);
     }
 
 
@@ -66,6 +218,7 @@ class Dash extends CI_Controller
 
         $this->load->view('templates/header', $data);
         $this->load->view('layout/data_wakaf');
+        $this->load->view('maps/maps_modal');
         $this->load->view('templates/footer');
     }
 
@@ -97,6 +250,18 @@ class Dash extends CI_Controller
         $data['title'] = 'Wakaf | Tambah Pengguna';
         $data['bred'] = 'Tambah Pengguna';
         $data['adm'] = $this->M_data->getAllresult('t_admin');
+        $data['pimpinan_cabang'] = $this->M_data->getAllresultCabang('pimpinancabang');
+
+        $locations = [
+            "ARJASARI", "BALEENDAH", "BANJARAN", "BOJONGSOANG", "CANGKUANG",
+            "CICALENGKA", "CILENGKRANG", "CILEUNYI", "CIMAUNG", "CIMENYAN",
+            "CIPARAY", "CIWIDEY", "CIKANCUNG", "DAYEUHKOLOT", "IBUN", "KATAPANG",
+            "KERTASARI", "KUTAWARINGIN", "MAJALAYA", "MARGA ASIH", "MARGAHAYU",
+            "NAGREG", "PACET", "PAMEUNGPEUK", "PANGALENGAN", "PASEH", "PASIR JAMBU",
+            "RANCAEKEK", "RANCABALI", "SOLOKAN JERUK", "SOREANG"
+        ];
+
+        $data['pimpinan_cabang'] = $locations;
 
         $this->load->view('templates/header', $data);
         $this->load->view('dash/adm_pengguna_add');
@@ -140,9 +305,11 @@ class Dash extends CI_Controller
         $username = htmlspecialchars($this->input->post('inputUsername'));
         $nama = htmlspecialchars($this->input->post('inputNama'));
         $email = htmlspecialchars($this->input->post('inputEmail'));
+        $id_pimpinan_cabang = htmlspecialchars($this->input->post('pimpinan_cabang'));
+        $niat = htmlspecialchars($this->input->post('niat'));
 
         $this->M_log->log_in("TAMBAH PENGGUNA BARU  " . $username . "");
-        $this->M_data->into_adm($username, $username, $nama, $email);
+        $this->M_data->into_adm($username, $username, $nama, $email, $id_pimpinan_cabang, $niat);
     }
 
     public function ajx_del_adm()
@@ -531,11 +698,12 @@ class Dash extends CI_Controller
         $data['title'] = 'Wakaf | Dashboard';
         $data['bred'] = 'Dashboard';
 
-        $data['hit_all'] = $this->db->get("t_data_wakaf")->num_rows();
-        $data['hit_masjid'] = $this->db->get_where("t_data_wakaf", array("ket_g" => "masjid"))->num_rows();
-        $data['hit_pesantren'] = $this->db->get_where("t_data_wakaf", array("ket_g" => "pesantren"))->num_rows();
-        $data['hit_sawah'] = $this->db->get_where("t_data_wakaf", array("ket_g" => "sawah"))->num_rows();
-        $data['hit_lainnya'] = $this->db->get_where("t_data_wakaf", array("ket_g" => "wakaf_lainnya"))->num_rows();
+        $data['hit_all'] = $this->db->get("objekwakaf")->num_rows();
+        $data['hit_masjid'] = $this->db->get_where("objekwakaf", array("KATEGORI_WAKAF" => "MASJID"))->num_rows();
+        $data['hit_pesantren'] = $this->db->get_where("objekwakaf", array("KATEGORI_WAKAF" => "PESANTREN"))->num_rows();
+        $data['hit_sawah'] = $this->db->get_where("objekwakaf", array("KATEGORI_WAKAF" => "SAWAH"))->num_rows();
+        $data['hit_lainnya'] = $this->db->get_where("objekwakaf", array("KATEGORI_WAKAF" => "KEBUN/TNH
+        KOSONG"))->num_rows();
 
 
         $this->load->view('templates/header', $data);

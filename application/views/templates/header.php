@@ -48,6 +48,15 @@
 		<script src="assets/js/html5shiv.min.js"></script>
 		<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@500&display=swap');
+
+        * {
+            font-family: 'Open Sans', sans-serif;
+        }
+    </style>
+
 </head>
 
 <body class="no-skin">
@@ -409,6 +418,14 @@
 
                             <b class="arrow"></b>
                         </li>
+                        <!-- <li class="" id="cabang">
+                            <a href="<?= base_url('dash/cabang') ?>">
+                                <i class="menu-icon fa fa-caret-right"></i>
+                                Data Cabang
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li> -->
                         <li class="" id="log">
                             <a href="<?= base_url('dash/log_history') ?>">
                                 <i class="menu-icon fa fa-caret-right"></i>

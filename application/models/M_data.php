@@ -3,6 +3,14 @@
     {
         //https://mega.nz/folder/AS5gmDYT#iWvmTNEb6efxc4dXp9CNvA
 
+
+        function getAllresultCabang($tabel)
+        {
+
+            $res = $this->db->order_by("NAMA_CABANG", "ASC")->get($tabel);
+            return $res->result();
+        }
+
         function query($sql)
         {
             return $this->db->query($sql);
@@ -57,10 +65,25 @@
             redirect('dash/pengguna');
         }
 
-        function into_adm($username, $password, $nama, $email)
+        function into_adm($username, $password, $nama, $email, $id_pimpinan_cabang, $niat)
         {
-            $query = "INSERT INTO `t_admin` (`username`, `password`, `nama`, `email`, `created`, `tgl_log_akhir`, `ip`) VALUES ('$username', '$password', '$nama', '$email', '', '', '');";
-            $this->db->query($query);
+
+            $data_admin = array(
+                "username" => $username,
+                "password" => $password,
+                "nama" => $nama,
+                "email" => $email,
+                "created" => date("Y-m-d H:i:s"),
+                "tgl_log_akhir" => "",
+                "ip" =>  $this->input->ip_address(),
+                "id_pimpinan_cabang" => $id_pimpinan_cabang,
+                "NIAT" => $niat
+            );
+
+            $this->db->insert("t_admin", $data_admin);
+
+            // $query = "INSERT INTO `t_admin` (`username`, `password`, `nama`, `email`, `created`, `tgl_log_akhir`, `ip`) VALUES ('$username', '$password', '$nama', '$email', '', '', '');";
+            // $this->db->query($query);
             redirect('dash/pengguna');
         }
 

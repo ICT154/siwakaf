@@ -43,7 +43,7 @@
             <div id="button-add-tabel">
                 <a href='#!' class="btn btn-success btn-sm" type="button" onclick="add_wakaf()">
                     <i class="ace-icon fa fa-plus icon-only"></i>
-                    Tambah Data Wakaf
+                    Tambah Data Cabang
                 </a>
             </div>
         </span>
@@ -63,12 +63,10 @@
             <tr>
                 <th>No</th>
                 <th>Action</th>
-                <th>Objek Wakaf No</th>
-                <th>Muwakif</th>
-                <th>Nadzir</th>
-                <th>Jenis Tanah Wakaf ( Luas )</th>
-                <th>Fungsi Wakaf ( Luas )</th>
-                <th>Pengelola</th>
+                <th>Cabang</th>
+                <th>Ranting</th>
+                <th>Jamaah</th>
+
             </tr>
         </thead>
         <tbody>
@@ -93,9 +91,6 @@
                             <a class="red" href="#!" data-id="<?= $key->ID ?>" onclick="delet(this)">
                                 <i class="ace-icon fa fa-trash-o bigger-130"></i>
                             </a>
-                            <a class="info" href="#!" data-id="<?= $key->ID ?>" onclick="delet(this)">
-                                <i class="ace-icon fa fa-folder-open-o bigger-130"></i>
-                            </a>
                         </div>
                     </td>
                     <td>
@@ -106,15 +101,6 @@
                     </td>
                     <td>
                         <?= $nadzir['NAMA_NADZIR'] ?>
-                    </td>
-                    <td>
-                        <?= $key->JENIS_TANAH ?>
-                    </td>
-                    <td>
-                        <?= $key->FUNGSI_WAKAF ?> ( <?= $key->LUAS_FUNGSI ?> )
-                    </td>
-                    <td>
-                        <?= $key->NAMA_PENGELOLA ?>
                     </td>
                 </tr>
             <?php
@@ -130,102 +116,7 @@
 <div id="form-data-wakaf">
 
 </div>
-
-
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="<?= base_url('vendor/') ?>assets/js/jquery-2.1.4.min.js"></script>
 <script>
-    function print_custom(x) {
-        var id = $(x).data('id');
-        $.ajax({
-            url: "<?= base_url("ajx/print_custom") ?>",
-            type: "post",
-            data: {
-                id: id,
-            },
-            success: function(msg) {
-                $("#form-data-wakaf").html(msg);
-            }
-        });
-    }
-
-    function delet(x) {
-        var id = $(x).data('id');
-        Swal.fire({
-            title: 'Apakah Anda Yakin?',
-            text: "Data yang dihapus tidak dapat dikembalikan!",
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-
-            confirmButtonText: 'Ya, Hapus!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                $.ajax({
-                    url: "<?= base_url('dash/wakaf_delet_') ?>",
-                    type: "POST",
-                    data: {
-                        id: id,
-                    },
-                    success: function(msg) {
-                        Swal.fire(
-                            'Terhapus!',
-                            'Data Berhasil Dihapus.',
-                            'success'
-                        ).then((result) => {
-                            location.reload();
-                        })
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                        })
-                    }
-                });
-            }
-        })
-    }
-
-    function edit(x) {
-        $("#spinner-tabel-form").show();
-        $("#tabel-data-wakaf").hide();
-        $("#button-add-tabel").hide();
-        $("#button-back-tabel").show();
-        var id = $(x).data('id');
-        $.ajax({
-            url: "<?= base_url('dash/wakaf_load_form_edit_') ?>",
-            type: "POST",
-            data: {
-                id: id,
-            },
-            success: function(msg) {
-                $("#spinner-tabel-form").hide();
-                $("#form-data-wakaf").html(msg);
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                $("#spinner-tabel-form").hide();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                })
-            }
-        });
-    }
-
-
-    function back_tabel() {
-        $("#spinner-tabel-form").show();
-        $("#tabel-data-wakaf").show();
-        $("#button-add-tabel").show();
-        $("#button-back-tabel").hide();
-        $("#form-data-wakaf").html('');
-        $("#spinner-tabel-form").hide();
-    }
-
     function add_wakaf() {
         $("#spinner-tabel-form").show();
         $("#tabel-data-wakaf").hide();
@@ -248,5 +139,15 @@
             }
         });
     }
-    $('#data_wakaf_').attr('class', 'active');
+
+    function back_tabel() {
+        $("#spinner-tabel-form").show();
+        $("#tabel-data-wakaf").show();
+        $("#button-add-tabel").show();
+        $("#button-back-tabel").hide();
+        $("#form-data-wakaf").html('');
+        $("#spinner-tabel-form").hide();
+    }
+    $('#set').attr('class', 'active open');
+    $('#cabang').attr('class', 'active');
 </script>

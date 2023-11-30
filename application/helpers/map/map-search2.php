@@ -316,7 +316,7 @@
         }
     </script>
     <?php require_once('../siwakaf/application/helpers/map/set-gmap-key.php'); ?>
-    <script src="https://maps.googleapis.com/maps/api/js?key=<?php echo $gmap_key; ?>&libraries=places&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCZPMgZUPk_PjxNl4KXT6zJIlHYslARZDU&libraries=places&callback=initMap" async defer></script>
 
     <?php /*<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script> */ ?>
 </body>

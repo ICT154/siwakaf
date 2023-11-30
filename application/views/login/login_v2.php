@@ -35,23 +35,23 @@
 		<script src="assets/js/respond.min.js"></script>
 		<![endif]-->
     <style>
-    .window {
-        width: 853px;
-        height: 485px;
-        background: #fff;
-        border-radius: 10px;
-        position: relative;
-        padding: 10px;
-        box-shadow: 9px 21px 18px rgba(0, 0, 0, .4);
-        text-align: left;
-        margin: auto;
-        margin-top: auto;
-        margin-bottom: auto;
-        margin-top: 5%;
-        margin-bottom: 0;
-        opacity: 0.9;
-        filter: alpha(opacity=90);
-    }
+        .window {
+            width: 853px;
+            height: 485px;
+            background: #fff;
+            border-radius: 10px;
+            position: relative;
+            padding: 10px;
+            box-shadow: 9px 21px 18px rgba(0, 0, 0, .4);
+            text-align: left;
+            margin: auto;
+            margin-top: auto;
+            margin-bottom: auto;
+            margin-top: 5%;
+            margin-bottom: 0;
+            opacity: 0.9;
+            filter: alpha(opacity=90);
+        }
     </style>
 </head>
 
@@ -73,16 +73,14 @@
                 <fieldset>
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
-                            <input type="text" id="username" class="form-control" name="username" autocomplete="off"
-                                required="" placeholder="Username">
+                            <input type="text" id="username" class="form-control" name="username" autocomplete="off" required="" placeholder="Username">
                             <i class="ace-icon fa fa-user"></i>
                         </span>
                     </label>
 
                     <label class="block clearfix">
                         <span class="block input-icon input-icon-right">
-                            <input type="password" class="form-control" placeholder="Password" id="password" required
-                                autocomplete="off" name="inputPassword">
+                            <input type="password" class="form-control" placeholder="Password" id="password" required autocomplete="off" name="inputPassword">
                             <i class="ace-icon fa fa-lock"></i>
                         </span>
                     </label>
@@ -95,10 +93,8 @@
                                                         <span class="lbl"> Remember Me</span>
                                                     </label> -->
 
-                        <button type="button" id="btnlog" class="width-35 pull-right btn btn-sm btn-primary"
-                            onclick="login()">
-                            <span id="loadinglog" style="display:none; position:relative;"><img
-                                    src="<?= base_url('vendor/') ?>assets/images/loading.gif" /></span>
+                        <button type="button" id="btnlog" class="width-35 pull-right btn btn-sm btn-primary" onclick="login()">
+                            <span id="loadinglog" style="display:none; position:relative;"><img src="<?= base_url('vendor/') ?>assets/images/loading.gif" /></span>
                             <i class="ace-icon fa fa-key"></i>
                             <span class="bigger-110">Login</span>
                         </button>
@@ -114,8 +110,7 @@
 
             <br><br>
 
-            <img style="border-radius: 30px; padding:20px; " src="<?= base_url('vendor/') ?>assets/images/pd-persis.png"
-                alt="" width="420px" height="372px">
+            <img style="border-radius: 30px; padding:20px; " src="<?= base_url('uploads/') ?>image_frame_front.jpg" alt="" width="420px" height="372px">
 
 
 
@@ -144,87 +139,87 @@
 <![endif]-->
 
     <script>
-    function login() {
-        var user = $('#username').val();
-        var pass = $('#password').val();
-        $('#loadinglog').show();
-        if (user != "" && pass != "") {
+        function login() {
+            var user = $('#username').val();
+            var pass = $('#password').val();
             $('#loadinglog').show();
-            document.getElementById('btnlog').disabled = true;
+            if (user != "" && pass != "") {
+                $('#loadinglog').show();
+                document.getElementById('btnlog').disabled = true;
 
-            //  your voice is     
-            //     my favorite sound :) 
+                //  your voice is     
+                //     my favorite sound :) 
 
-            $.ajax({
-                url: '<?= base_url('auth/ajxlogin') ?>',
-                type: 'post',
-                data: {
-                    user: user,
-                    pass: pass
-                },
-                success: function(pesan) {
-                    if (data = '') {
-                        alert('gagal');
-                        $('#loadinglog').hide();
-                    } else {
-                        $('#loadinglog').hide();
-                        $('.tampildisini').html(pesan);
-                        //$('#logtext').html(data);
-                        document.getElementById('btnlog').disabled = false;
+                $.ajax({
+                    url: '<?= base_url('auth/ajxlogin') ?>',
+                    type: 'post',
+                    data: {
+                        user: user,
+                        pass: pass
+                    },
+                    success: function(pesan) {
+                        if (data = '') {
+                            alert('gagal');
+                            $('#loadinglog').hide();
+                        } else {
+                            $('#loadinglog').hide();
+                            $('.tampildisini').html(pesan);
+                            //$('#logtext').html(data);
+                            document.getElementById('btnlog').disabled = false;
+                        }
                     }
-                }
-            });
-        } else {
-            alert('Harap Isi Dahulu');
-            $('#loadinglog').hide();
+                });
+            } else {
+                alert('Harap Isi Dahulu');
+                $('#loadinglog').hide();
+            }
         }
-    }
     </script>
 
 
     <script type="text/javascript">
-    if ('ontouchstart' in document.documentElement) document.write(
-        "<script src='<?= base_url('vendor/') ?>assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+        if ('ontouchstart' in document.documentElement) document.write(
+            "<script src='<?= base_url('vendor/') ?>assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
     </script>
 
     <!-- inline scripts related to this page -->
     <script type="text/javascript">
-    jQuery(function($) {
-        $(document).on('click', '.toolbar a[data-target]', function(e) {
-            e.preventDefault();
-            var target = $(this).data('target');
-            $('.widget-box.visible').removeClass('visible'); //hide others
-            $(target).addClass('visible'); //show target
-        });
-    });
-
-
-
-    //you don't need this, just used for changing background
-    jQuery(function($) {
-        $('#btn-login-dark').on('click', function(e) {
-            $('body').attr('class', 'login-layout');
-            $('#id-text2').attr('class', 'white');
-            $('#id-company-text').attr('class', 'blue');
-
-            e.preventDefault();
-        });
-        $('#btn-login-light').on('click', function(e) {
-            $('body').attr('class', 'login-layout light-login');
-            $('#id-text2').attr('class', 'grey');
-            $('#id-company-text').attr('class', 'blue');
-
-            e.preventDefault();
-        });
-        $('#btn-login-blur').on('click', function(e) {
-            $('body').attr('class', 'login-layout blur-login');
-            $('#id-text2').attr('class', 'white');
-            $('#id-company-text').attr('class', 'light-blue');
-
-            e.preventDefault();
+        jQuery(function($) {
+            $(document).on('click', '.toolbar a[data-target]', function(e) {
+                e.preventDefault();
+                var target = $(this).data('target');
+                $('.widget-box.visible').removeClass('visible'); //hide others
+                $(target).addClass('visible'); //show target
+            });
         });
 
-    });
+
+
+        //you don't need this, just used for changing background
+        jQuery(function($) {
+            $('#btn-login-dark').on('click', function(e) {
+                $('body').attr('class', 'login-layout');
+                $('#id-text2').attr('class', 'white');
+                $('#id-company-text').attr('class', 'blue');
+
+                e.preventDefault();
+            });
+            $('#btn-login-light').on('click', function(e) {
+                $('body').attr('class', 'login-layout light-login');
+                $('#id-text2').attr('class', 'grey');
+                $('#id-company-text').attr('class', 'blue');
+
+                e.preventDefault();
+            });
+            $('#btn-login-blur').on('click', function(e) {
+                $('body').attr('class', 'login-layout blur-login');
+                $('#id-text2').attr('class', 'white');
+                $('#id-company-text').attr('class', 'light-blue');
+
+                e.preventDefault();
+            });
+
+        });
     </script>
 </body>
 

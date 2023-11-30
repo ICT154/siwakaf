@@ -30,15 +30,17 @@ $icon_lain = "";
 $info_lain = "";
 $info_win_lain = "";
 
-$res = $this->db->get("t_data_wakaf");
+$res = $this->db->get("objekwakaf");
 
 foreach ($res->result() as $key) {
 
-    $pimpinan = $this->db->get_where('t_data_pimpinan',  array('id_data_wakaf' => $key->id_data_wakaf), 1)->row_array();
-    $pengelola = $this->db->get_where('t_data_pengelola',  array('id_data_wakaf' => $key->id_data_wakaf), 1)->row_array();
+    // $pimpinan = $this->db->get_where('t_data_pimpinan',  array('id_data_wakaf' => $key->id_data_wakaf), 1)->row_array();
+    // $pengelola = $this->db->get_where('t_data_pengelola',  array('id_data_wakaf' => $key->id_data_wakaf), 1)->row_array();
+
+    $muwakif = $this->db->get_where('muwakif',  array('ID' => $key->MUWAKIF_ID), 1)->row_array();
 
 
-    if ($key->ket_g == "pesantren") {
+    if ($key->KATEGORI_WAKAF == "pesantren") {
         $icon_marker = base_url("vendor/assets/images/icon/merah.png");
         $icon_marker_pes = base_url("vendor/assets/images/icon/merah.png");
         $lat_pes .= $pengelola['lat'] . "|";
@@ -46,7 +48,7 @@ foreach ($res->result() as $key) {
         $icon_pes .= $icon_marker . "|";
         $info_pes = "----- INFORMASI TANAH WAKAF ----- <br>Nama Wakif : " . $key->nama_wakif . "<br>Alamat Wakif : " . $key->alamat_wakif . " <br>Luas Tanah : " . $key->luas_tanah . " <br>Luas Bangunan : " . $key->luas_bangunan . " <br>No. Sertifikat : " . $key->sertifikat . "<br>AJB : " . $key->ajb . "<br>AIW : " . $key->aiw . "<br><br>----- INFORMASI TANAH WAKAF ----- <br>Wakaf : " . $pengelola['nama'] . "<br> Pengelola " . $pengelola['pengelola'] . " <br> <br>Alamat Wakaf : " . $pengelola['lokasi'] . "<br> |";
         $info_win_pes .= $info_pes;
-    } else if ($key->ket_g == "masjid") {
+    } else if ($key->KATEGORI_WAKAF == "masjid") {
         $icon_marker = base_url("vendor/assets/images/icon/kuning.png");
         $icon_marker_mas = base_url("vendor/assets/images/icon/kuning.png");
         $lat_mas .= $pengelola['lat'] . "|";
@@ -54,7 +56,7 @@ foreach ($res->result() as $key) {
         $icon_mas .= $icon_marker . "|";
         $info_mas = "----- INFORMASI TANAH WAKAF ----- <br>Nama Wakif : " . $key->nama_wakif . "<br>Alamat Wakif : " . $key->alamat_wakif . " <br>Luas Tanah : " . $key->luas_tanah . " <br>Luas Bangunan : " . $key->luas_bangunan . " <br>No. Sertifikat : " . $key->sertifikat . "<br>AJB : " . $key->ajb . "<br>AIW : " . $key->aiw . "<br><br>----- INFORMASI TANAH WAKAF ----- <br>Wakaf : " . $pengelola['nama'] . "<br> Pengelola " . $pengelola['pengelola'] . " <br> <br>Alamat Wakaf : " . $pengelola['lokasi'] . "<br> |";
         $info_win_mas .= $info_mas;
-    } else if ($key->ket_g == "sawah") {
+    } else if ($key->KATEGORI_WAKAF == "sawah") {
         $icon_marker = base_url("vendor/assets/images/icon/biru.png");
         $icon_marker_wah = base_url("vendor/assets/images/icon/biru.png");
         $lat_wah .= $pengelola['lat'] . "|";
@@ -62,7 +64,7 @@ foreach ($res->result() as $key) {
         $icon_wah .= $icon_marker . "|";
         $info_wah = "----- INFORMASI TANAH WAKAF ----- <br>Nama Wakif : " . $key->nama_wakif . "<br>Alamat Wakif : " . $key->alamat_wakif . " <br>Luas Tanah : " . $key->luas_tanah . " <br>Luas Bangunan : " . $key->luas_bangunan . " <br>No. Sertifikat : " . $key->sertifikat . "<br>AJB : " . $key->ajb . "<br>AIW : " . $key->aiw . "<br><br>----- INFORMASI TANAH WAKAF ----- <br>Wakaf : " . $pengelola['nama'] . "<br> Pengelola " . $pengelola['pengelola'] . " <br> <br>Alamat Wakaf : " . $pengelola['lokasi'] . "<br> |";
         $info_win_wah .= $info_wah;
-    } else if ($key->ket_g == "wakaf_lainnya") {
+    } else if ($key->KATEGORI_WAKAF == "wakaf_lainnya") {
         $icon_marker = base_url("vendor/assets/images/icon/hijau.png");
         $icon_marker_lain = base_url("vendor/assets/images/icon/hijau.png");
         $lat_lain .= $pengelola['lat'] . "|";
@@ -71,27 +73,27 @@ foreach ($res->result() as $key) {
         $info_lain = "----- INFORMASI TANAH WAKAF ----- <br>Nama Wakif : " . $key->nama_wakif . "<br>Alamat Wakif : " . $key->alamat_wakif . " <br>Luas Tanah : " . $key->luas_tanah . " <br>Luas Bangunan : " . $key->luas_bangunan . " <br>No. Sertifikat : " . $key->sertifikat . "<br>AJB : " . $key->ajb . "<br>AIW : " . $key->aiw . "<br><br>----- INFORMASI TANAH WAKAF ----- <br>Wakaf : " . $pengelola['nama'] . "<br> Pengelola " . $pengelola['pengelola'] . " <br> <br>Alamat Wakaf : " . $pengelola['lokasi'] . "<br> |";
         $info_win_lain .= $info_lain;
     }
-
-    $lat .= $pengelola['lat'] . "|";
-    $lon .= $pengelola['lng'] . "|";
-    $icon .= $icon_marker . "|";
-    $info_ = "----- INFORMASI TANAH WAKAF ----- <br>Nama Wakif : " . $key->nama_wakif . "<br>Alamat Wakif : " . $key->alamat_wakif . " <br>Luas Tanah : " . $key->luas_tanah . " <br>Luas Bangunan : " . $key->luas_bangunan . " <br>No. Sertifikat : " . $key->sertifikat . "<br>AJB : " . $key->ajb . "<br>AIW : " . $key->aiw . "<br><br>----- INFORMASI TANAH WAKAF ----- <br>Wakaf : " . $pengelola['nama'] . "<br> Pengelola " . $pengelola['pengelola'] . " <br> <br>Alamat Wakaf : " . $pengelola['lokasi'] . "<br> |";
+    $icon_marker_lain = base_url("vendor/assets/images/icon/hijau.png");
+    $lat .= $key->LATITUDE . "|";
+    $lon .= $key->LONGITUDE . "|";
+    $icon .= base_url("vendor/assets/images/icon/hijau.png") . "|";
+    $info_ = "----- INFORMASI TANAH WAKAF ----- <br>Nama Wakif : " . $muwakif['NAMA_MUWAKIF'] . "<br>Alamat Wakif : " . $muwakif['ALAMAT_MUWAKIF'] . " <br>Luas Tanah : " . $key->LUAS_TANAH . " <br>Luas Bangunan : " . $key->LUAS_FUNGSI . " <br>No. Sertifikat : " . $key->BASTW_NOMOR . "<br>AJB : " . $key->SERTIFIKAT_NOMOR . "<br>AIW : " . $key->AIW_NOMOR . "<br><br>----- INFORMASI TANAH WAKAF ----- <br>Wakaf : " . $key->FUNGSI_WAKAF . "<br> Pengelola " .  $key->NAMA_PENGELOLA . " <br> <br>Alamat Wakaf : " . $key->LOKASI_TANAH . "<br> |";
 
     $info_win .= $info_;
 }
 
 
-$this->db->where("ket_g", "wakaf_lainnya");
-$res_lain = $this->db->get("t_data_wakaf");
+$this->db->where("KATEGORI_WAKAF", "KEBUN/TNH KOSONG");
+$res_lain = $this->db->get("objekwakaf");
 
-$this->db->where("ket_g", "masjid");
-$res_mas = $this->db->get("t_data_wakaf");
+$this->db->where("KATEGORI_WAKAF", "MASJID");
+$res_mas = $this->db->get("objekwakaf");
 
-$this->db->where("ket_g", "pesantren");
-$res_pes = $this->db->get("t_data_wakaf");
+$this->db->where("KATEGORI_WAKAF", "PESANTREN");
+$res_pes = $this->db->get("objekwakaf");
 
-$this->db->where("ket_g", "sawah");
-$res_wah = $this->db->get("t_data_wakaf");
+$this->db->where("KATEGORI_WAKAF", "SAWAH");
+$res_wah = $this->db->get("objekwakaf");
 
 ?>
 
@@ -196,7 +198,7 @@ $res_wah = $this->db->get("t_data_wakaf");
         };
 
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 12,
+            zoom: 10,
             center: haightAshbury,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
@@ -350,7 +352,7 @@ $res_wah = $this->db->get("t_data_wakaf");
     }
 </script>
 
-<script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyAXzf0gOiP-O01KtfYx-lUp9TiM-z9adh0&libraries=visualization"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?callback=initMap&key=AIzaSyCZPMgZUPk_PjxNl4KXT6zJIlHYslARZDU&libraries=visualization"></script>
 <script>
     $('#pet2').attr('class', 'active');
 </script>

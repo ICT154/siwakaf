@@ -153,16 +153,12 @@ class Welcome extends CI_Controller
 
 	function tes_print()
 	{
-		$html = $this->load->view('layout/print_data_wakaf',);
-		// $html = '<h1>Hello, Dompdf!</h1><p>This is a simple example.</p>';
+		// $this->load->view('layout/print_data_wakaf');
+		$html = $this->load->view('layout/print_data_wakaf', '', true);
+
 		try {
 			$this->generatePDF("tes", $html);
 		} catch (\Throwable $th) {
-
-			echo "<pre>";
-			print_r($th);
-			echo "</pre>";
 		}
-		// $this->pdf->render($html);
 	}
 }
