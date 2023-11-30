@@ -11,6 +11,32 @@ class Proses extends CI_Controller
         $this->load->model('M_log');
     }
 
+    function upload_images_wakaf()
+    {
+        $config['upload_path'] = './uploads/img/gambar_wakaf/';
+        $config['allowed_types'] = 'gif|jpg|png|jpeg';
+        $config['max_size'] = 100000;
+        $config['max_width'] = 100000;
+        $config['max_height'] = 100000;
+        $config['encrypt_name'] = TRUE;
+        $this->load->library('upload', $config);
+        if (!$this->upload->do_upload('gambar_images')) {
+            $this->M_log->show_msg("danger", "Gagal Upload Gambar" . $this->upload->display_errors() . "");
+            redirect(base_url("dash/data_wakaf_"));
+        } else {
+            $data = $this->upload->data();
+            $data_gambar = array(
+                "id_gambar" => "G" . str_replace("-", "", date("Y-m-d")) . "" . rand() . "",
+                "id_penerimaan_wakaf" => $this->input->post('upload_gambar_id'),
+                "gambar" => $data['file_name'],
+                "date_g" => date("Y-m-d H:i:s"),
+            );
+            $this->db->insert("gambar", $data_gambar);
+            $this->M_log->show_msg("success", "Berhasil Upload Gambar");
+            redirect(base_url("dash/data_wakaf_"));
+        }
+    }
+
     function data_wakaf_sv_edit()
     {
         try {

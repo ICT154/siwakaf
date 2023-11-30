@@ -93,7 +93,7 @@
                             <a class="red" href="#!" data-id="<?= $key->ID ?>" onclick="delet(this)">
                                 <i class="ace-icon fa fa-trash-o bigger-130"></i>
                             </a>
-                            <a class="info" href="#!" data-id="<?= $key->ID ?>" onclick="delet(this)">
+                            <a class="info" href="#!" data-id="<?= $key->ID ?>" onclick="upload_gambar(this)">
                                 <i class="ace-icon fa fa-folder-open-o bigger-130"></i>
                             </a>
                         </div>
@@ -132,9 +132,53 @@
 </div>
 
 
+<div class="modal fade" id="modalgambar" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                Upload Gambar
+            </div>
+            <div class="modal-body" id="p_show">
+                <div id="tabel-image"></div>
+
+
+                <form action="<?= base_url("proses/upload_images_wakaf") ?>" method="post" enctype="multipart/form-data">
+
+                    <label for="">Upload Gambar : </label>
+                    <input type="file" name="gambar_images" id="gambar_images" class="form-control">
+                    <input type="hidden" name="upload_gambar_id" id="upload_gambar_id" value="">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Save changes</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="<?= base_url('vendor/') ?>assets/js/jquery-2.1.4.min.js"></script>
 <script>
+    function upload_gambar(x) {
+        $("#tabel-image").hide();
+        var id = $(x).data('id');
+        $("#modalgambar").modal("show");
+        $("#upload_gambar_id").val(id);
+        $.ajax({
+            url: "<?= base_url('ajx/ajx_get_gambar') ?>",
+            type: "POST",
+            data: {
+                id: id,
+            },
+            success: function(msg) {
+                $("#tabel-image").html(msg);
+                $("#tabel-image").show();
+            }
+        });
+    }
+
     function print_custom(x) {
         var id = $(x).data('id');
         $.ajax({

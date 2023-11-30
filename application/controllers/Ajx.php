@@ -15,6 +15,30 @@ class Ajx extends CI_Controller
         $this->load->model('M_log');
     }
 
+    function wakaf_delet_gambar()
+    {
+        $id = $this->input->post('id');
+        $this->db->where('id_gambar', $id);
+        $this->db->delete('gambar');
+    }
+
+
+    function ajx_get_gambar()
+    {
+        $id = $this->input->post('id');
+        $data = $this->db->get_where('gambar', ['id_penerimaan_wakaf' => $id]);
+        if ($data->num_rows() > 0) {
+            $data_gambar = $data->result();
+            $data = array(
+                'gambar' => $data_gambar
+            );
+            $this->load->view('layout/data_gambar_wakaf', $data);
+        } else {
+            echo '<div class="col-md-12 text-center">Tidak ada gambar</div> <br><br>';
+        }
+        // echo $html;
+    }
+
     function print_custom()
     {
         $id_objek_wakaf = $this->input->post('id');
